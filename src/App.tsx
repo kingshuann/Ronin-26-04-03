@@ -398,7 +398,7 @@ const App = () => {
                   {/* Anatomical Reference Image */}
                   <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 mb-6">
                     <img 
-                      src="./img/ear.jpg" 
+                      src="/img/ear.jpg" 
                       alt="Piercing Anatomy Reference" 
                       className="w-full h-auto object-contain"
                       referrerPolicy="no-referrer"
