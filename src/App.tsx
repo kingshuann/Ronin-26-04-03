@@ -672,7 +672,7 @@ const App = () => {
                           <div key={idx} className="border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm transition-all hover:border-gray-200">
                             <button 
                               onClick={() => setOpenFaqId(isOpen ? null : faqId)}
-                              className="w-full flex items-center justify-between p-5 text-left transition-colors hover:bg-gray-50"
+                              className={`w-full flex items-center justify-between p-5 text-left transition-colors ${isOpen ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
                             >
                               <h4 className="text-black font-bold text-base leading-snug pr-4">{item.q}</h4>
                               <motion.div
@@ -721,37 +721,60 @@ const App = () => {
             >
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-black mb-3 underline decoration-gray-200 underline-offset-8">預約指南</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">浪人工作室採全預約制，確保每位顧客的隱私與品質。</p>
+                <p className="text-gray-400 text-[13px] leading-relaxed">
+                  為維護每位顧客的專屬隱私與服務品質，工作室採<span className="text-black font-medium">完全預約制</span>。若未事先預約即自行前往，我們將無法保證能為您提供即時的專業服務，敬請見諒。
+                </p>
+              </div>
+
+              <div className="mb-12">
+                <a href="https://lin.ee/S2oV6XqD" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full p-5 bg-[#06C755] text-white rounded-xl font-bold transition-all hover:bg-[#05b34c] active:scale-95 shadow-lg shadow-green-100">
+                  <div className="flex items-center space-x-3">
+                    <HelpCircle size={20} />
+                    <span>官方 Line 立即預約</span>
+                  </div>
+                  <ArrowRight size={18} />
+                </a>
               </div>
               
-              <div className="space-y-4 mb-12">
+              <div className="relative pl-12 space-y-12 mb-16">
+                {/* Vertical Line */}
+                <div className="absolute left-[17px] top-2 bottom-2 w-[1px] bg-gray-100"></div>
+
                 {[
-                  { step: 1, title: '諮詢洽談', desc: '私訊 IG 提供想穿刺的部位照片，進行解剖評估與報價。' },
-                  { step: 2, title: '定金確認', desc: '確認時間後，支付 300 元定金即完成時段預約。' },
-                  { step: 3, title: '現場服務', desc: '準時抵達，享受寧靜專業的穿孔過程。' }
-                ].map((s) => (
-                  <div key={s.step} className="p-6 bg-white border border-gray-100 rounded-2xl flex items-start space-x-4 shadow-sm">
-                    <div className="bg-gray-50 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">{s.step}</div>
+                  { step: 1, title: '爬文', desc: '本網站提供了 90% 您可能有疑問的解答，請詳細閱讀後再發問。' },
+                  { step: 2, title: '諮詢洽談', desc: (
+                    <>
+                      請私訊官方 Line，告訴我們您的任何疑問，進行評估與討論。<span className="text-red-500">如果是網站上就找得到答案的，闆娘可能會小生氣喔 ^^</span>
+                    </>
+                  )},
+                  { step: 3, title: '預約時段', desc: (
+                    <>
+                      請留下姓名、電話、想預約的時段<br />
+                      營業時間 12:00 - 20:00 (最後預約時段)<br />
+                      週二固定公休
+                    </>
+                  )},
+                  { step: 4, title: '現場服務', desc: '準時抵達，享受專屬於您的專業穿洞服務時段。' }
+                ].map((s, idx) => (
+                  <div key={s.step} className="relative">
+                    {/* Step Indicator */}
+                    <div className="absolute -left-[47px] top-0 w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center z-10">
+                      <span className="text-xs font-bold text-black">{s.step}</span>
+                    </div>
+                    
                     <div>
-                      <h4 className="font-bold text-black mb-1 text-sm uppercase tracking-wide">{s.title}</h4>
-                      <p className="text-gray-400 text-xs leading-relaxed">{s.desc}</p>
+                      <h4 className="font-bold text-black mb-2 text-sm uppercase tracking-widest">{s.title}</h4>
+                      <div className="text-gray-400 text-xs leading-relaxed font-light">{s.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="space-y-3">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full p-5 bg-black text-white rounded-xl font-bold transition-all hover:bg-gray-800 active:scale-95 shadow-lg shadow-gray-200">
-                  <div className="flex items-center space-x-3">
-                    <Instagram size={20} />
-                    <span>Instagram 立即預約</span>
-                  </div>
-                  <ArrowRight size={18} />
-                </a>
                 <div className="flex flex-col items-center justify-center py-6 text-gray-400 space-y-2 text-center">
                   <div className="flex items-center space-x-2 text-xs">
                     <MapPin size={14} />
-                    <span>台北市信義區現代藝術巷 101 號 (預約制)</span>
+                    <span>台中市北屯區北屯路240巷15號（全預約制）</span>
                   </div>
                 </div>
               </div>
@@ -762,8 +785,8 @@ const App = () => {
 
       {/* Simple Footer */}
       <footer className="max-w-md mx-auto px-6 py-12 border-t border-gray-50 text-center">
-        <p className="text-[10px] tracking-[0.4em] text-gray-300 uppercase font-light">
-          Ronin Piercing Studio / Purely Professional
+        <p className="text-[10px] tracking-[0.2em] text-gray-300 uppercase font-light">
+          © 2026 Ronin Piercing Studio. All Rights Reserved.
         </p>
       </footer>
     </div>
